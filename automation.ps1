@@ -5,9 +5,7 @@ $decommMessage = "TestDescription"
 $jiraCardName = "TEST-123"
 $newBranchName = "$jiraCardName-$decommMessage"
 $commitMessage = "testing commit message"
-$filesToAdd = @(
-    "dir1\Huxley.API.Full.sln"
-    )
+$filesToAdd = @("/Api/Service/Huxley.API.Full.sln", "/Api/Service/packages/repositories.config", "/Api/Service/build/Nuget.ps1", "/Api/Service/Hosts/Huxley.API.Version1.WebHost/Huxley.API.Version1.WebHost.csproj")
 
 function RunCommand {
     param (
@@ -24,18 +22,19 @@ function RunScript() {
     # Set-Location C:\Users\Bella.LeberSmeaton\Documents\Mira\deccomscript\testRunningScripts\testRepo
     $scriptRoot = $PSScriptRoot # holds the dir where the script is located
     Set-Location $scriptRoot
-        
+    RunCommand("git checkout main")
+    
     RunCommand("git checkout $branchName")
 
     RunCommand("git checkout -b $newBranchName")
 
-    $versionToRemove = Read-Host "Please provide the version you wish to remove..."
+    $versionToRemove = Read-Host "Please provide the version you wish to remove, in this formet 'YYYY.MM' eg. 2024.02 "
     
     $arlRootDirectory = Read-Host "Please provide the root of your ARL repo on your location machine..."
     
     # Run console app
-    AppExitCode = & ../../transformationScript.ps1 $versionToRemove $arlRootDirectory
-    
+    $consoleAppExitCode = & dotnet run --project ./decomm/DecommTransformations/DecommTransformations.csproj $versionToRemove $arlRootDirectory
+
     if ($consoleAppExitCode -eq 1) {
         RunCommand("git reset --hard")  # Reset any changes made
         Exit
