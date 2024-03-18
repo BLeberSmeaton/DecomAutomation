@@ -1,0 +1,291 @@
+﻿ Task Update.Nuget {
+  if (-not (Test-path packages)) {
+   New-Item -Path packages -ItemType directory
+  }
+  set-location packages
+  exec { ..\.nuget\NuGet.exe install ..\.nuget\packages.config }
+  set-location ..
+}
+
+Task PublishToNuget {
+  $packages = (Get-ChildItem .publish-to-nuget -Recurse -Include '*.nupkg') | % {
+    Write-Host "Pushing $_ to $local_nuget_repository"
+    exec { .nuget\NuGet.exe push $_ -Source $local_nuget_repository -ApiKey MYOBNuGetPublish }
+  }
+}
+
+function Remove-Huxley-Symlink {
+  $huxleyPackageLink = "$staticPackageDir\HuxleyKitchenSink"
+  if (Test-Path $huxleyPackageLink) {
+    cmd /c rmdir /s /q $huxleyPackageLink
+  }
+  $huxleyPackageLink2 = "$staticPackageDir\HuxleyKitchenSink2"
+  if (Test-Path $huxleyPackageLink2) {
+    cmd /c rmdir /s /q $huxleyPackageLink2
+  }
+}
+
+Task Update-Huxley {
+  $nuget = ".nuget\NuGet.exe"
+  $packageName =  "$huxleyPackageName"
+  $packagesDir = "packages"
+  $myobNugetRepo = "https://nugetserver.myob.myobcorp.net/NuGetRepository/nuget"
+  $count = 0
+
+  Write-Host "Updating Huxley Package: $packageName"
+
+  do
+  {
+    if ($count -gt 0) { Write-Host 'Retrying...' }
+    $count = $count + 1
+    $availablePackages = (& $nuget list -source $myobNugetRepo $packageName)
+  } while ( $availablePackages -eq $null -and $count -lt 3)
+
+  $availablePackages = ($availablePackages | where-object {$_ -like "$packageName *"})
+
+  Write-Host "Available Packages:"
+  $availablePackages | Out-String | Write-Host
+
+  if ($availablePackages -is [string]) {
+    $latestPackage = $availablePackages
+  }
+  else {
+    throw [System.InvalidOperationException] 'There should be at least one and only one version returned'
+  }
+  
+  $latestPackage -match "($packageName) (.*)" | Out-Null
+  $packageVersion = $matches[2]
+
+  # *******  Do we need to re-implement this?
+  if ($env:GO_DEPENDENCY_LABEL_HUXLEY -ne $null) {
+    $env:GO_DEPENDENCY_LABEL_HUXLEY -match "^(\d+)"
+    $desiredVersion = ($matches[1] / 10000).toString()
+    $foundPackage = $availablePackages | Where { $_ -match $desiredVersion}
+    if ($foundPackage -match "($packageName) (.*)"){
+      $packageVersion = $matches[2]
+    } else {
+      Write-Host "Can't find version [$desiredVersion] - using latest [$foundPackage] instead"
+    }
+  }
+
+  Write-Host "Installing $packageName - $packageVersion"
+  $nugetResponse = & $nuget install $packageName -Version $packageVersion -Verbosity detailed -source $myobNugetRepo -outputdirectory $packagesDir
+  $nugetResponse = $nugetResponse -join " "
+ 
+  $nugetResponse -match "'($packageName) (.*?)'" | Out-Null
+
+  $latestInstalledHuxley = "$($matches[1]).$($matches[2])"
+  Write-Host "$latestInstalledHuxley installed"
+
+  if (!(Test-Path $staticPackageDir)) {
+    mkdir $staticPackageDir
+  }
+
+  Remove-Huxley-Symlink
+
+  cmd /c mklink /D "$staticPackageDir\HuxleyKitchenSink" "..\packages\$latestInstalledHuxley"
+  cmd /c mklink /D "$staticPackageDir\HuxleyKitchenSink2" "..\packages\$latestInstalledHuxley"
+}
+
+Task Remove-Huxley-Symlink {
+  Remove-Huxley-Symlink
+}
+
+Task FetchAdapterPackages {
+    FetchLatestAdapterPackageFromNuget2 'Huxley_Release_2023_10' '2023.10'
+    FetchLatestAdapterPackageFromNuget2 'Huxley_Release_2023_11' '2023.11'
+}
+
+Task RemoveAdapterPackages {
+    RemoveAdapterPackageSymLink '2023.10'
+    RemoveAdapterPackageSymLink '2023.11'
+}
+
+function RemoveAdapterPackageSymLink {
+  param([string] $ar_version)
+  
+  $adapterPackageLink = "$staticPackageDir\API_Adapter.$ar_version"
+  if (Test-Path $adapterPackageLink) {
+   cmd /c rmdir $adapterPackageLink
+  }
+}
+
+function RestoreSolutionPackagesFromNuget {
+  param([string] $solution_file)
+  
+  $nuget = '.nuget\NuGet.exe'
+  $nugetconfig = '.nuget\NuGet.config'
+  $packagesDir = 'packages'
+  $nugetRepos = 'https://nugetserver.myob.myobcorp.net/NuGetRepository/nuget;https://nuget.org/api/v2/'
+  
+   Write-Host "Restoring packages for Solution: $solution_file to package dir: $packagesDir"
+   & $nuget restore $solution_file -Verbosity detailed -source $nugetRepos -outputdirectory $packagesDir -ConfigFile $nugetconfig
+}
+
+function FetchLatestAdapterPackageFromNuget {
+  param([string] $ar_version)
+  
+  $nuget = '.nuget\NuGet.exe'
+  $packagesDir = 'packages'
+  $myobNugetRepo = 'https://nugetserver.myob.myobcorp.net/NuGetRepository/nuget'
+  
+  $packageName = 'API_Adapter'
+  $adapter_package = GetLatestAdapterPackage $packageName $ar_version
+  
+  $adapter_package -match "($packageName) (.*)" | out-null
+  $packageVersion = $matches[2]
+    
+  Write-Host "Installing $packageName - $packageVersion"
+  $nugetResponse = & $nuget install $packageName -Version $packageVersion -Verbosity detailed -source $myobNugetRepo -outputdirectory $packagesDir
+  $nugetResponse -match "'($packageName) (.*)'" | Out-Null
+
+  $latestInstalledAdapters = "$($matches[1]).$($matches[2])"
+  Write-Host "$latestInstalledAdapters installed"
+  
+  $adapterPackageLink = "$staticPackageDir\API_Adapter.$ar_version"
+  if (Test-Path $adapterPackageLink) {
+   cmd /c rmdir $adapterPackageLink
+  }
+  
+  cmd /c mklink /D $adapterPackageLink "..\packages\$latestInstalledAdapters"
+  
+}
+
+function GetLatestAdapterPackage {
+  param([string] $packageName, $package_version)
+
+  $nuget = '.nuget\NuGet.exe'
+  $packagesDir = 'packages'
+  $myobNugetRepo = 'https://nugetserver.myob.myobcorp.net/NuGetRepository/nuget'
+
+  $availablePackages = (& $nuget list -allversions -source $myobNugetRepo $packageName) 
+  write-host $availablePackages
+	
+  $availablePackages = ($availablePackages | where-object {$_ -like "$packageName $package_version.*" } )
+
+  if (-not ($availablePackages -is [string])) {
+    $availablePackages = ( $availablePackages | sort-object -descending )[0]
+  }  
+	
+  write-host $availablePackages
+  
+  if ($availablePackages -is [string]) {
+    $latestPackage = $availablePackages
+  }
+  else {
+    throw [System.InvalidOperationException] 'There should be at least one and only one version returned'
+  }
+  
+  $latestPackage
+}
+
+function FetchLatestAdapterPackageFromNuget2 {
+  param([string] $packageName, [string] $ar_version)
+  
+  $nuget = '.nuget\NuGet.exe'
+  $packagesDir = 'packages'
+  $staticPackageDir = 'packages-static'
+  $myobNugetRepo = 'https://nugetserver.myob.myobcorp.net/NuGetRepository/nuget'
+
+  if ((Test-Path -Path $staticPackageDir) -eq $false) {
+    Write-Host "Creating $staticPackageDir"
+    mkdir $staticPackageDir
+  }
+     
+  Write-Host "Installing $packageName"
+  $nugetResponse = & $nuget install $packageName -Verbosity normal -source $myobNugetRepo -outputdirectory $packagesDir
+  $m = Select-String "$packageName.(\d+\.\d+\.\d+\.\d+)" -input $nugetResponse -allmatches | Select-Object -ExpandProperty Matches | Select-Object -ExpandProperty Value -First 1
+ 
+  if (-not ($m -is [string])) {
+    $m = $m[0]
+  } 
+  $latestInstalledAdapters = $m -replace ' ','.'
+  
+  write-host $latestInstalledAdapters
+  Write-Host "$latestInstalledAdapters installed"
+  
+  $adapterPackageLink = "$staticPackageDir\API_Adapter.$ar_version"
+  if (Test-Path $adapterPackageLink) {
+   cmd /c rmdir $adapterPackageLink
+  }
+
+  $source = "$packagesDir\$latestInstalledAdapters"
+  if ((Test-Path -Path $source) -eq $false) {
+    Write-Host "Package not found at: $source"
+  }
+
+  cmd /c mklink /D $adapterPackageLink "..\$source"
+  if ($LASTEXITCODE -eq 1) { # The above line gives a cryptic error message
+    Write-Host "Failed to create Symlink from $source to $adapterPackageLink"
+  }
+
+  Write-Host (Get-Location)
+}
+
+Task MakeAdapterNugetPackage {
+
+  $nuget = '.nuget\NuGet.exe'
+  
+  # generate revision number
+  $ar_version = $huxleyReleaseVersion
+  $ar_version_name = $huxleyReleaseVersion.Replace('.', '-')
+  $revision = 0
+  
+  $revision = git rev-list $env:GO_REVISION_HUXLEY --count
+  
+  $revision_major_minor = ($revision / 10000).ToString("##0") + "." + ($revision % 10000).ToString("##0")
+  
+  #create nuspec file
+  $nuget_pre = 'adapter_ship.nuspec'
+  if (test-path $nuget_pre) { Clear-Content $nuget_pre  }  
+  Add-Content $nuget_pre '<?xml version="1.0"?>'
+  Add-Content $nuget_pre '<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">'
+  Add-Content $nuget_pre '  <metadata>'
+  Add-Content $nuget_pre "    <id>API_Adapter-$ar_version_name</id>"
+  Add-Content $nuget_pre "    <version>$ar_version.$revision_major_minor</version>"
+  Add-Content $nuget_pre '    <title>API Adapters</title>'
+  Add-Content $nuget_pre '    <authors>Quantum</authors>'
+  Add-Content $nuget_pre '    <owners />'
+  Add-Content $nuget_pre '    <licenseUrl>http://localhost</licenseUrl>'
+  Add-Content $nuget_pre '    <iconUrl>http://localhost</iconUrl>'
+  Add-Content $nuget_pre '    <projectUrl>http://localhost</projectUrl>'
+  Add-Content $nuget_pre '    <requireLicenseAcceptance>false</requireLicenseAcceptance>'
+  Add-Content $nuget_pre '    <description>API Adapters</description>'
+  Add-Content $nuget_pre '    <summary />'
+  Add-Content $nuget_pre '    <language>en-US</language>'
+  Add-Content $nuget_pre '    <tags />'
+  Add-Content $nuget_pre '  </metadata>'
+  Add-Content $nuget_pre '  <files>'  
+  
+  $adapters_source = "$pwd\Artefacts\Adapters\Ship\Release\"
+  Get-ChildItem $adapters_source -include *.dll,*.pdb -recurse | select -ExpandProperty fullname | Foreach-Object {
+    $a = $_.Replace($adapters_source, '')
+    Write-Host $a
+    
+    $parts = $a.Split('\')
+    if ($parts.length -eq 2) {
+      Add-Content $nuget_pre "    <file src='$_' target='lib/net40/$($parts[0])' />"
+    } else {
+      Add-Content $nuget_pre "    <file src='$_' target='lib/net40' />"
+    }
+  }
+  
+  Add-Content $nuget_pre '  </files>'  
+  Add-Content $nuget_pre '</package>'
+  $nuget_output_folder = 'Artefacts/Adapters/Nuget'
+  
+  # build package
+  if (-not (Test-Path($nuget_output_folder))) 
+  { 
+    New-Item -Path $nuget_output_folder -ItemType directory -force
+  }
+  Remove-Item $nuget_output_folder\* -recurse
+  
+  exec {& $nuget pack $nuget_pre -outputdirectory $nuget_output_folder }
+  
+  # upload package
+  $packages = (Get-ChildItem $nuget_output_folder -Recurse -Include '*.nupkg') | % {
+    Write-Host "Pushing $_ to $local_nuget_repository"
+    exec {& $nuget push $_ -Source $local_nuget_repository -ApiKey MYOBNuGetPublish }
+  }
+}

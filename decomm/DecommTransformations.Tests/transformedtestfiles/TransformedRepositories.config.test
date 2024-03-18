@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\Cloud\Huxley.API.Cloud.UnitTests\packages.config" />
+  <repository path="..\Cloud\Huxley.API.HuxleyLatest.Cloud\packages.config" />
+  <repository path="..\Cloud\Huxley.API.Shared.Cloud\packages.config" />
+  <repository path="..\Common\Huxley.API.Cloud.Infrastructure\packages.config" />
+  <repository path="..\Common\Huxley.API.Core.Infrastructure.Tests\packages.config" />
+  <repository path="..\Common\Huxley.API.Core.Infrastructure\packages.config" />
+  <repository path="..\Hosts\Huxley.API.AddOnConnector.Core\packages.config" />
+  <repository path="..\Hosts\Huxley.API.ApplicationHost\packages.config" />
+  <repository path="..\Hosts\Huxley.API.ConsoleHost\packages.config" />
+  <repository path="..\Hosts\Huxley.API.Hosts.Testing\packages.config" />
+  <repository path="..\Hosts\Huxley.API.Version1.WebHost\packages.config" />
+  <repository path="..\Hosts\Huxley.API.WindowsServiceHost\packages.config" />
+  <repository path="..\Installers\Huxley.API.CertInstaller.IntegrationTests\packages.config" />
+  <repository path="..\Installers\Huxley.API.CertInstaller.Tests\packages.config" />
+  <repository path="..\Installers\Huxley.API.CertInstaller\packages.config" />
+  <repository path="..\Installers\MYOB.AccountRight.API.Installer.CustomAction\packages.config" />
+  <repository path="..\Logging\Huxley.API.Logging.UnitTests\packages.config" />
+  <repository path="..\Logging\Huxley.API.Logging\packages.config" />
+  <repository path="..\Logging\Huxley.API.LoggingProcessor.Worker\packages.config" />
+  <repository path="..\Version1\Huxley.API.Version1.Controllers\packages.config" />
+  <repository path="..\Version1\Huxley.API.Version1.Tests\packages.config" />
+  <repository path="..\Version2\Huxley.API.Version2.Controllers\packages.config" />
+  <repository path="..\Version2\Huxley.API.Version2.Tests\packages.config" />
+</repositories>

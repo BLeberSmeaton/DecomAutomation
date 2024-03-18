@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion></ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2B490458-95A6-458A-8FC3-4FB8D81A2FA1}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Huxley.API.Version1.WebHost</RootNamespace>
+    <AssemblyName>Huxley.API.Version1.WebHost</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <IsCompassProject>True</IsCompassProject>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AR.Cloud.Common, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\AR.Cloud.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.WebApi.2.6.3.862-beta\lib\NET40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentMigrator">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\FluentMigrator.Runner.dll</HintPath>
+    </Reference>
+    <Reference Include="Huxley.VersionIndependent.Client">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\Huxley.VersionIndependent.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Huxley.VersionIndependent.Utilities">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\Huxley.VersionIndependent.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.AzureClientHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.ApplicationServer.Caching.AzureClientHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.AzureCommon, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.ApplicationServer.Caching.AzureCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Edm.5.8.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.OData.5.8.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.8.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocol.Extensions">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocol.Extensions.1.0.2.206221351\lib\net45\Microsoft.IdentityModel.Protocol.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.DistributedCache, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.Web.DistributedCache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel">
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization, Version=2.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(MSBuildProgramFiles32)\Microsoft Sync Framework\2.1\Runtime\x86\Microsoft.Synchronization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServerCe, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.MetadataStorage, Version=2.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(MSBuildProgramFiles32)\Microsoft Sync Framework\2.1\Runtime\x86\Microsoft.Synchronization.MetadataStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.SimpleProviders, Version=2.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(MSBuildProgramFiles32)\Microsoft Sync Framework\2.1\Runtime\x86\Microsoft.Synchronization.SimpleProviders.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Microsoft SDKs\Azure\.NET SDK\v2.9\bin\plugins\Diagnostics\Microsoft.WindowsAzure.Diagnostics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Microsoft SDKs\Azure\.NET SDK\v2.9\ref\Microsoft.WindowsAzure.ServiceRuntime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsAzure.Storage.8.5.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.WindowsFabric.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Data.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.WindowsAzure.Caching.2.9.5\lib\net40-full\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MonAgentListener, Version=33.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft SDKs\Azure\.NET SDK\v2.9\bin\plugins\Diagnostics\MonAgentListener.dll</HintPath>
+    </Reference>
+    <Reference Include="MYOB.AccountRight.API.Core.Interfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=947f70fecdd4159f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\MYOB.AccountRight.API.Core.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="MYOB.AccountRight.API.Core.Utilities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=947f70fecdd4159f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages-static\HuxleyKitchenSink\lib\net40\MYOB.AccountRight.API.Core.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="NewRelic.Api.Agent, Version=8.4.880.0, Culture=neutral, PublicKeyToken=06552fced0b33d87, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NewRelicWindowsAzure.8.4.880\lib\NewRelic.Api.Agent.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Pipelines.Sockets.Unofficial.2.2.0\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StackExchange.Redis.2.2.4\lib\net461\StackExchange.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.PerformanceCounter, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.PerformanceCounter.5.0.0\lib\net461\System.Diagnostics.PerformanceCounter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Pipelines.5.0.0\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Channels.5.0.0\lib\net461\System.Threading.Channels.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Tracing">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Tracing.0.2.0-alpha\lib\net40\System.Web.Http.Tracing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http"></Reference>
+    <Reference Include="System.Net.Http.WebRequest"></Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\version\version_host.cs">
+      <Link>Properties\version_host.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IocContainer.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\TraceConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Cache\RedisDistributedCache.cs" />
+    <Compile Include="WebRole.cs" />
+    <Compile Include="Configuration\WebApiConfiguration.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Certificates\MYOB-Root-CA.cer">
+      <Link>MYOB-Root-CA.cer</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Tools\NiXPS\NiXPS SDK v2.6.7\bin\dotnet\win32\NiXPS.dll">
+      <Link>NiXPS.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Default.html" />
+    <None Include="Enable32bitSupport.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <None Include="..\..\Tools\SyncFramework\DatabaseProviders-v3.1-x86-ENU.msi">
+      <Link>DatabaseProviders-v3.1-x86-ENU.msi</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Tools\SyncFramework\Synchronization-v2.1-x86-ENU.msi">
+      <Link>Synchronization-v2.1-x86-ENU.msi</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AspNetThreadPool.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="EnableXmlDsigXPathTransform.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Enable32bitSupport.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="EnableCompression.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="InstallRootCAs.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="NewRelicServerMonitor_x64_3.3.6.0.msi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NewRelicAgent_x64_8.4.880.0.msi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="newrelic.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SetIISStartUp.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="SetMessageSize.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Transforms\copy.xslt" />
+    <None Include="Transforms\copy.release.xslt" />
+    <None Include="Transforms\copy.2014.3.xslt" />
+    <None Include="Transforms\copy.2014.2.xslt" />
+    <None Include="Transforms\copy.release.2014.3.xslt" />
+    <None Include="Transforms\copy.release.2014.2.xslt" />
+    <None Include="Microsoft.WindowsAzure.Caching\PerformanceCounters.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Transforms\copy.2014.4.xslt" />
+    <Content Include="Transforms\copy.2015.1.xslt" />
+    <Content Include="Transforms\copy.2015.2.xslt" />
+    <Content Include="Transforms\copy.2015.3.xslt" />
+    <Content Include="Transforms\copy.2015.4.xslt" />
+    <Content Include="Transforms\copy.2016.1.xslt">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Transforms\copy.2016.2.xslt">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Transforms\copy.2017.1.xslt" />
+    <Content Include="Transforms\copy.2018.1.xslt" />
+    <Content Include="Transforms\copy.2018.2.xslt" />
+    <Content Include="Transforms\copy.2018.3.xslt" />
+    <Content Include="Transforms\copy.2018.4.xslt" />
+    <Content Include="Transforms\copy.2019.1.xslt" />
+    <Content Include="Transforms\copy.2019.2.xslt" />
+    <Content Include="Transforms\copy.2019.3.xslt" />
+    <Content Include="Transforms\copy.2019.4.xslt" />
+    <Content Include="Transforms\copy.2019.5.xslt" />
+    <Content Include="Transforms\copy.2020.1.xslt" />
+    <Content Include="Transforms\copy.2020.3.xslt" />
+    <Content Include="Transforms\copy.2020.2.xslt" />
+    <Content Include="Transforms\copy.2020.4.xslt" />
+    <Content Include="Transforms\copy.2021.1.xslt" />
+    <Content Include="Transforms\copy.2021.2.xslt" />
+    <Content Include="Transforms\copy.2021.3.xslt" />
+    <Content Include="Transforms\copy.2021.4.xslt" />
+    <Content Include="Transforms\copy.2021.5.xslt" />
+    <Content Include="Transforms\copy.2021.6.xslt" />
+    <Content Include="Transforms\copy.2021.7.xslt" />
+    <Content Include="Transforms\copy.2021.8.xslt" />
+    <Content Include="Transforms\copy.2022.1.xslt" />
+    <Content Include="Transforms\copy.2022.2.xslt" />
+    <Content Include="Transforms\copy.2022.3.xslt" />
+    <Content Include="Transforms\copy.2022.4.xslt" />
+    <Content Include="Transforms\copy.2022.5.xslt" />
+    <Content Include="Transforms\copy.2022.6.xslt" />
+    <Content Include="Transforms\copy.2022.7.xslt" />
+    <Content Include="Transforms\copy.2022.8.xslt" />
+    <Content Include="Transforms\copy.2022.9.xslt" />
+    <Content Include="Transforms\copy.2022.10.xslt" />
+    <Content Include="Transforms\copy.2022.11.xslt" />
+    <Content Include="Transforms\copy.2023.1.xslt" />
+    <Content Include="Transforms\copy.2023.2.xslt" />
+    <Content Include="Transforms\copy.2023.3.xslt" />
+    <Content Include="Transforms\copy.2023.4.xslt" />
+    <Content Include="Transforms\copy.2023.5.xslt" />
+    <Content Include="Transforms\copy.2023.6.xslt" />
+    <Content Include="Transforms\copy.2023.7.xslt" />
+    <Content Include="Transforms\copy.2023.8.xslt" />
+    <Content Include="Transforms\copy.2023.9.xslt" />
+    <Content Include="Transforms\copy.2023.10.xslt" />
+    <Content Include="Transforms\copy.2023.11.xslt" />
+    <Content Include="Transforms\copy.release.2014.4.xslt" />
+    <Content Include="Transforms\copy.release.2015.1.xslt" />
+    <Content Include="Transforms\copy.release.2015.2.xslt" />
+    <Content Include="Transforms\copy.release.2015.3.xslt" />
+    <Content Include="Transforms\copy.release.2015.4.xslt" />
+    <Content Include="Transforms\copy.release.2016.1.xslt" />
+    <Content Include="Transforms\copy.release.2016.2.xslt" />
+    <Content Include="Transforms\copy.release.2017.1.xslt" />
+    <Content Include="Transforms\copy.release.2018.1.xslt" />
+    <Content Include="Transforms\copy.release.2018.2.xslt" />
+    <Content Include="Transforms\copy.release.2018.3.xslt" />
+    <Content Include="Transforms\copy.release.2018.4.xslt" />
+    <Content Include="Transforms\copy.release.2019.1.xslt" />
+    <Content Include="Transforms\copy.release.2019.2.xslt" />
+    <Content Include="Transforms\copy.release.2019.3.xslt" />
+    <Content Include="Transforms\copy.release.2019.4.xslt" />
+    <Content Include="Transforms\copy.release.2019.5.xslt" />
+    <Content Include="Transforms\copy.release.2020.1.xslt" />
+    <Content Include="Transforms\copy.release.2020.4.xslt" />
+    <Content Include="Transforms\copy.release.2020.3.xslt" />
+    <Content Include="Transforms\copy.release.2020.2.xslt" />
+    <Content Include="Transforms\copy.release.2021.1.xslt" />
+    <Content Include="Transforms\copy.release.2021.2.xslt" />
+    <Content Include="Transforms\copy.release.2021.3.xslt" />
+    <Content Include="Transforms\copy.release.2021.4.xslt" />
+    <Content Include="Transforms\copy.release.2021.5.xslt" />
+    <Content Include="Transforms\copy.release.2021.6.xslt" />
+    <Content Include="Transforms\copy.release.2021.7.xslt" />
+    <Content Include="Transforms\copy.release.2021.8.xslt" />
+    <Content Include="Transforms\copy.release.2022.1.xslt" />
+    <Content Include="Transforms\copy.release.2022.2.xslt" />
+    <Content Include="Transforms\copy.release.2022.3.xslt" />
+    <Content Include="Transforms\copy.release.2022.4.xslt" />
+    <Content Include="Transforms\copy.release.2022.5.xslt" />
+    <Content Include="Transforms\copy.release.2022.6.xslt" />
+    <Content Include="Transforms\copy.release.2022.7.xslt" />
+    <Content Include="Transforms\copy.release.2022.8.xslt" />
+    <Content Include="Transforms\copy.release.2022.9.xslt" />
+    <Content Include="Transforms\copy.release.2022.10.xslt" />
+    <Content Include="Transforms\copy.release.2022.11.xslt" />
+    <Content Include="Transforms\copy.release.2023.1.xslt" />
+    <Content Include="Transforms\copy.release.2023.2.xslt" />
+    <Content Include="Transforms\copy.release.2023.3.xslt" />
+    <Content Include="Transforms\copy.release.2023.4.xslt" />
+    <Content Include="Transforms\copy.release.2023.5.xslt" />
+    <Content Include="Transforms\copy.release.2023.6.xslt" />
+    <Content Include="Transforms\copy.release.2023.7.xslt" />
+    <Content Include="Transforms\copy.release.2023.8.xslt" />
+    <Content Include="Transforms\copy.release.2023.9.xslt" />
+    <Content Include="Transforms\copy.release.2023.10.xslt" />
+    <Content Include="Transforms\copy.release.2023.11.xslt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="startup.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cloud\Huxley.API.Huxley2023X11.Cloud\Huxley.API.Huxley2023X11.Cloud.csproj">
+      <Project>{3ca1c69b-3ab7-46c4-9551-f2784882b762}</Project>
+      <Name>Huxley.API.Huxley2023X11.Cloud</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cloud\Huxley.API.HuxleyLatest.Cloud\Huxley.API.HuxleyLatest.Cloud.csproj">
+      <Project>{ada12790-70ab-4d6f-a4f2-d5e3650c4d71}</Project>
+      <Name>Huxley.API.HuxleyLatest.Cloud</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cloud\Huxley.API.Shared.Cloud\Huxley.API.Shared.Cloud.csproj">
+      <Project>{b1cd5737-a881-4453-9c55-3be0b4bb3ba1}</Project>
+      <Name>Huxley.API.Shared.Cloud</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Huxley.API.Cloud.Infrastructure\Huxley.API.Cloud.Infrastructure.csproj">
+      <Project>{77F223BF-CFE6-42DD-A789-A52E6E4EB316}</Project>
+      <Name>Huxley.API.Cloud.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Huxley.API.Core.Infrastructure\Huxley.API.Core.Infrastructure.csproj">
+      <Project>{ce1483f5-41a5-4b74-bff0-ebbbe40a0304}</Project>
+      <Name>Huxley.API.Core.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Version1\Huxley.API.Version1.Controllers\Huxley.API.Version1.Controllers.csproj">
+      <Project>{741524a7-78f9-44a4-b5da-c6dceb511bd7}</Project>
+      <Name>Huxley.API.Version1.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Version2\Huxley.API.Version2.Controllers\Huxley.API.Version2.Controllers.csproj">
+      <Project>{3cd06b28-573b-4e0b-9a3f-e94d31ea2c71}</Project>
+      <Name>Huxley.API.Version2.Controllers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\HuxleyDev.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>4597</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4597/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:4597/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PostBuildEvent></PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+ -->
+  <Target Name="AfterBuild">
+    <CallTarget Targets="CopyPackageAndDomainFiles" />
+    <CallTarget Targets="CopySupportAssembliesIntoDomains" />
+    <CallTarget Targets="TransformDomainConfigs" />
+  </Target>
+  <!-- can we automate this by building a .proj based on the HuxleyDomainToken enum? -->
+  <!-- if you find yourself looking at this part of the MSBUILD script and wondering "WTH?" - turn on the verbosity level! -->
+  <Target Name="CopyPackageAndDomainFiles">
+    <ItemGroup>
+      <HUX2023X11PAK Include="$(SolutionDir)\packages-static\API_Adapter.2023.11\lib\net40\*.*" />
+      <HUX2023X11DOM Include="$(SolutionDir)\Artefacts\Adapters\Cloud\Huxley2023X11\$(ConfigurationName)\*.*" />
+      <HUXLATESTPAK Include="$(SolutionDir)\packages-static\HuxleyKitchenSink\lib\net40\*.*" />
+      <HUXLATESTDOM Include="$(SolutionDir)\Artefacts\Adapters\Cloud\HUXLATEST\$(ConfigurationName)\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(HUX2023X11PAK)" DestinationFolder="$(TargetDir)Huxley2023X11" OverwriteReadOnlyFiles="true" />
+    <Copy SourceFiles="@(HUX2023X11DOM)" DestinationFolder="$(TargetDir)Huxley2023X11" OverwriteReadOnlyFiles="true" />
+    <Copy SourceFiles="@(HUXLATESTPAK)" DestinationFolder="$(TargetDir)Huxley2023X11" OverwriteReadOnlyFiles="true" />
+    <Copy SourceFiles="@(HUXLATESTDOM)" DestinationFolder="$(TargetDir)Huxley2023X11" OverwriteReadOnlyFiles="true" />
+  </Target>
+  <Target Name="CopySupportAssembliesIntoDomains">
+    <ItemGroup>
+      <DomainSupportAssemblies Include="$(TargetDir)MYOB.AccountRight.API.Core.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)Microsoft.WindowsAzure.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)Microsoft.ServiceBus.dll" />
+      <DomainSupportAssemblies Include="$(TargetDir)Huxley.API.Shared.Cloud.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)MYOB.AccountRight.API.Version1.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)MYOB.AccountRight.API.Version2.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)System.Data.SqlServerCe.dll" />
+      <DomainSupportAssemblies Include="$(TargetDir)StackExchange.Redis.StrongName.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)NLog.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)ProductionStackTrace.*" />
+      <DomainSupportAssemblies Include="$(TargetDir)Newtonsoft.Json.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DomainSupportAssemblies)" DestinationFolder="$(TargetDir)Huxley2023X11" />
+  </Target>
+  <Target Name="TransformDomainConfigs">
+    <ItemGroup>
+      <WEBCONFIG Include="web.config" />
+    </ItemGroup>
+    <!-- sometimes the web.configs need to be backwardly compatible e.g. migrationLogDatabaseConnectionString appeared in 2014.2 -->
+    <XSLTransformation XslInputPath="transforms\copy.2023.11.xslt" XmlInputPaths="@(WEBCONFIG)" OutputPaths="$(TargetDir)Huxley2023X11\%(RecursiveDir)%(Filename)%(Extension)" Condition=" '$(Configuration)' == 'Debug' " />
+    <!--
+    <XSLTransformation XslInputPath="transforms\copy.xslt" XmlInputPaths="@(WEBCONFIG)" OutputPaths="$(TargetDir)Huxley2017X1\%(RecursiveDir)%(Filename)%(Extension)" Condition=" '$(Configuration)' == 'Debug' " />
+  -->
+    <XSLTransformation XslInputPath="transforms\copy.release.2023.11.xslt" XmlInputPaths="@(WEBCONFIG)" OutputPaths="$(TargetDir)Huxley2023X11\%(RecursiveDir)%(Filename)%(Extension)" Condition=" '$(Configuration)' == 'Release' " />
+    <!--
+    <XSLTransformation XslInputPath="transforms\copy.release.xslt" XmlInputPaths="@(WEBCONFIG)" OutputPaths="$(TargetDir)Huxley2017X1\%(RecursiveDir)%(Filename)%(Extension)" Condition=" '$(Configuration)' == 'Release' " />
+  -->
+  </Target>
+  <PropertyGroup>
+    <GetCopyToOutputDirectoryItemsDependsOn>
+            AddFilesToProjectDeployment;
+            $(GetCopyToOutputDirectoryItemsDependsOn)
+    </GetCopyToOutputDirectoryItemsDependsOn>
+  </PropertyGroup>
+  <Target Name="AddFilesToProjectDeployment">
+    <ItemGroup>
+      <HUX2023X11 Include="$(TargetDir)Huxley2023X11\**\*.*" />
+      <MICROSOFTIDENTITY Include="$(SolutionDir)\packages-static\HuxleyKitchenSink\lib\net40\Microsoft.IdentityModel.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <ContentWithTargetPath Include="@(HUX2023X11->'%(FullPath)')">
+        <TargetPath>Huxley2023X11\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </ContentWithTargetPath>
+    </ItemGroup>
+    <ItemGroup>
+      <ContentWithTargetPath Include="@(MICROSOFTIDENTITY->'%(FullPath)')">
+        <TargetPath>%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </ContentWithTargetPath>
+    </ItemGroup>
+  </Target>
+</Project>
